@@ -30,25 +30,33 @@ export class ProductsComponent implements OnInit {
 
   loadAllProductsData(): void {
     this.productsService.getAllProducts().subscribe(
-      data => {
-        this.productsData = data;
-        console.log(data);  // Traitez les données ici
+      response => {
+        this.productsData = response;
+        console.log('Produits récupérés avec succès!', response);
       },
       error => {
-        console.error('There was an error!', error);
+        console.error('Il y a eu une erreur lors de la récupération des produits', error);
       }
     );
   }
 
   loadAllCategoriesData(): void {
     this.categoriesService.getAllCategories().subscribe(
-      data => {
-        this.categoriesData = data;
+      response => {
+        this.categoriesData = response;
+        console.log('Catégories récupérées avec succès!', response);
       },
       error => {
-        console.error('There was an error!', error);
+        console.error('Il y a eu une erreur lors de la récupération des catégories', error);
       }
     );
+  }
+
+  getCategoryName(categoryId) {
+    const category = this.categoriesData.find(cat => cat.id === categoryId);
+    if (category) {
+      return category.name;
+    }
   }
 
   addCategory() {
@@ -70,7 +78,7 @@ export class ProductsComponent implements OnInit {
     this.currentCategory = Object.assign({}, category);
   }
 
-  updateCategory(currentCategory:Category) {
+  updateCategory(currentCategory: Category) {
     this.categoriesService.updateCategory(currentCategory.id, currentCategory).subscribe(
       response => {
         console.log('Catégorie modifiée avec succès!', response);
@@ -98,7 +106,25 @@ export class ProductsComponent implements OnInit {
     );
   }
 
-  navigateToCreateProduct(){
-    this.router.navigate(['/products/create-product']);
+  deleteProduct(product: Product) {
+    this.productsService.deleteProduct(product.id).subscribe(
+      response => {
+        console.log('Produit supprimé avec succès!', response);
+        this.loadAllCategoriesData();
+        this.notificationsService.showSuccess("Produit supprimé avec succès!");
+      },
+      error => {
+        console.error('Il y a eu une erreur lors de la suppression du produit', error);
+        this.notificationsService.showError("Il y a eu une erreur lors de la suppression du produit");
+      }
+    );
+  }
+
+  navigateToCreateProduct() {
+    this.router.navigate(['/admin/products/create-product']);
+  }
+
+  navigateToUpdateProduct(id) {
+    this.router.navigate(['/admin/products/edit-product', id]);
   }
 }

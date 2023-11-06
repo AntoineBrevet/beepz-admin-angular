@@ -6,6 +6,18 @@
     width: 20px !important;
 }
 
+.w-150px {
+    width: 150px !important;
+}
+
+.w-175px {
+    width: 175px !important;
+}
+
+.w-200px {
+    width: 200px !important;
+}
+
 .w-300px {
     width: 300px !important;
 }
@@ -20,6 +32,10 @@
 
 .w-100 {
     width: 100% !important;
+}
+
+.w-max-75 {
+    max-width: 75px !important;
 }
 
 .w-max-300 {

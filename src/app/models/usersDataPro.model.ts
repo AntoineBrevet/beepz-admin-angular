@@ -1,10 +1,10 @@
 export class UsersDataPro {
-    _id?: string;
+    id?: string;
     email: string;
     tel: string;
     adresse: string;
     codepostal: string;
-    nomEntreprise: string;
+    entreprisenom: string;
     siret: string;
     lat: number;
     lon: number;

@@ -20,23 +20,33 @@ import { EditRestaurantComponent } from './components/restaurants/edit-restauran
 import { ProductsComponent } from './components/products/products.component';
 import { EditProductComponent } from './components/products/edit-product/edit-product.component';
 import { CreateProductComponent } from './components/products/create-product/create-product.component';
+import { LoginComponent } from './components/login/login.component';
+import { AuthGuard } from './shared/guards/auth.guard';
+import { RedirectIfAuthenticatedGuard } from './shared/guards/redirect-if-authenticated.guard';
 
 const routes: Routes = [
   {
     path: '',
-    redirectTo: 'dashboard',
-    pathMatch: 'full',
+    component: LoginComponent,
+    canActivate: [RedirectIfAuthenticatedGuard],
   },
   {
-    path: '',
+    path: 'login',
+    component: LoginComponent,
+    canActivate: [RedirectIfAuthenticatedGuard],
+  },
+  {
+    path: 'admin',
     component: AdminLayoutComponent,
+    canActivate: [AuthGuard],
     children: [
+      { path: '', component: DashboardComponent },
       { path: 'dashboard', component: DashboardComponent },
       { path: 'restaurants', component: RestaurantsComponent },
       { path: 'restaurants/edit-restaurant', component: EditRestaurantComponent },
       { path: 'products', component: ProductsComponent },
       { path: 'products/create-product', component: CreateProductComponent },
-      { path: 'products/edit-product', component: EditProductComponent },
+      { path: 'products/edit-product/:id', component: EditProductComponent },
       { path: 'clients', component: ClientsComponent },
       { path: 'orders', component: OrdersComponent },
       { path: 'user-profile', component: UserProfileComponent },
