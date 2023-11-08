@@ -61,14 +61,14 @@ export class OrdersComponent implements OnInit {
     }
 
     getUserName(userId) {
-        const user = this.usersData.find(userData => userData.id === userId);
+        const user = this.usersData.find(userData => userData.uid === userId);
         if (user) {
             return user.prenom + " " + user.nom;
         }
     }
 
     getProName(proId) {
-        const pro = this.prosData.find(proData => proData.id === proId);
+        const pro = this.prosData.find(proData => proData.uid === proId);
         if (pro) {
             return pro.entreprisenom;
         }
