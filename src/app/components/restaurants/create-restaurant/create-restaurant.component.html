@@ -4,8 +4,8 @@
             <div class="col-md-12">
                 <div class="card">
                     <div class="card-header card-header-primary">
-                        <h4 class="card-title">Modifier restaurant</h4>
-                        <p class="card-category">Modifier un restaurant</p>
+                        <h4 class="card-title">Nouveau restaurant</h4>
+                        <p class="card-category">Ajouter un restaurant</p>
                     </div>
                     <div class="card-body">
                         <form [formGroup]="restaurantForm">
@@ -69,8 +69,8 @@
                                     </mat-form-field>
                                 </div>
                             </div>
-                            <button mat-raised-button (click)="updateRestaurant()" type="submit"
-                                class="btn btn-success pull-right">Modifier le restaurant</button>
+                            <button mat-raised-button (click)="addRestaurant()" type="submit"
+                                class="btn btn-success pull-right">Ajouter un restaurant</button>
                             <div class="clearfix"></div>
                         </form>
                     </div>

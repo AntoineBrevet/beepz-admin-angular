@@ -23,6 +23,7 @@ import { CreateProductComponent } from './components/products/create-product/cre
 import { LoginComponent } from './components/login/login.component';
 import { AuthGuard } from './shared/guards/auth.guard';
 import { RedirectIfAuthenticatedGuard } from './shared/guards/redirect-if-authenticated.guard';
+import { CreateRestaurantComponent } from './components/restaurants/create-restaurant/create-restaurant.component';
 
 const routes: Routes = [
   {
@@ -43,7 +44,8 @@ const routes: Routes = [
       { path: '', component: DashboardComponent },
       { path: 'dashboard', component: DashboardComponent },
       { path: 'restaurants', component: RestaurantsComponent },
-      { path: 'restaurants/edit-restaurant', component: EditRestaurantComponent },
+      { path: 'restaurants/create-restaurant', component: CreateRestaurantComponent },
+      { path: 'restaurants/edit-restaurant/:id', component: EditRestaurantComponent },
       { path: 'products', component: ProductsComponent },
       { path: 'products/create-product', component: CreateProductComponent },
       { path: 'products/edit-product/:id', component: EditProductComponent },

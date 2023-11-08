@@ -61,7 +61,6 @@ export class CreateProductComponent implements OnInit {
   }
 
   addProduct() {
-    console.log(this.product);
     this.productsService.createProduct(this.product).subscribe(
       response => {
         console.log('Produit crée avec succès!', response);
