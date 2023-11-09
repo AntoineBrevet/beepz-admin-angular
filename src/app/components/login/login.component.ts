@@ -27,6 +27,8 @@ export class LoginComponent implements OnInit {
         const user = response.user;
         localStorage.setItem('token', token);
         localStorage.setItem('user', JSON.stringify(user));
+        
+        this.usersDataProService.currentUserSubject.next(user);
 
         const storedUser = localStorage.getItem('user');
         if (storedUser) {

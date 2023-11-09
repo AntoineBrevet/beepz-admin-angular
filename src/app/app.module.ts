@@ -40,6 +40,7 @@ import { MatDialogModule } from '@angular/material/dialog';
 import { LoginComponent } from './components/login/login.component';
 
 import { AuthInterceptor } from './shared/auth.interceptor';
+import { CreateRestaurantComponent } from './components/restaurants/create-restaurant/create-restaurant.component';
 
 @NgModule({
   imports: [
@@ -79,7 +80,8 @@ import { AuthInterceptor } from './shared/auth.interceptor';
     EditProductComponent,
     CreateProductComponent,
     ImageCropperComponent,
-    LoginComponent
+    LoginComponent,
+    CreateRestaurantComponent
   ],
   providers: [
     {
