@@ -16,8 +16,12 @@ export const ROUTES: RouteInfo[] = [
   { path: '/admin/dashboard', title: 'Dashboard', icon: 'dashboard', class: '', access: 'all' },
   { path: '/admin/restaurants', title: 'Restaurants', icon: 'restaurant', class: '', access: 'adminOnly' },
   { path: '/admin/clients', title: 'Clients', icon: 'person', class: '', access: 'adminOnly' },
-  { path: '/admin/orders', title: 'Commandes', icon: 'local_shipping', class: '', access: 'all' },
-  { path: '/admin/products', title: 'Produits', icon: 'local_offer', class: '', access: 'all' },
+  { path: '/admin/orders', title: 'Commandes', icon: 'local_shipping', class: '', access: 'adminOnly' },
+  { path: '/admin/products', title: 'Produits', icon: 'local_offer', class: '', access: 'adminOnly' },
+
+  { path: '/admin/restaurant-orders', title: 'Commandes', icon: 'local_shipping', class: '', access: 'userOnly' },
+  { path: '/admin/restaurant-products', title: 'Produits', icon: 'local_offer', class: '', access: 'userOnly' },
+
   // { path: '/admin/user-profile', title: 'User Profile',  icon:'person', class: '' },
   // { path: '/admin/table-list', title: 'Table List',  icon:'content_paste', class: '' },
   // { path: '/admin/typography', title: 'Typography',  icon:'library_books', class: '' },

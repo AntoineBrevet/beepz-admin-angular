@@ -42,8 +42,8 @@ export class RestaurantsComponent implements OnInit {
         this.notificationsService.showSuccess("Restaurant supprimé avec succès!");
       },
       error => {
-        console.error('Il y a eu une erreur lors de la suppression du Restaurant', error);
-        this.notificationsService.showError("Il y a eu une erreur lors de la suppression du Restaurant");
+        console.error('Il y a eu une erreur lors de la suppression du restaurant', error);
+        this.notificationsService.showError("Il y a eu une erreur lors de la suppression du restaurant");
       }
     );
   }

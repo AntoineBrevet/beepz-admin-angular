@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { FormGroup, FormControl } from '@angular/forms';
 import { Router } from '@angular/router';
 import { Category } from 'app/models/category.model';
 import { Product } from 'app/models/product.model';
@@ -7,31 +8,60 @@ import { NotificationService } from 'app/services/notification/notification.serv
 import { ProductService } from 'app/services/product/product.service';
 
 @Component({
-  selector: 'app-products',
-  templateUrl: './products.component.html',
-  styleUrls: ['./products.component.css']
+  selector: 'app-restaurant-products',
+  templateUrl: './restaurant-products.component.html',
+  styleUrls: ['./restaurant-products.component.css']
 })
-export class ProductsComponent implements OnInit {
+export class RestaurantProductsComponent implements OnInit {
+  uid: string;
+  categoryId: string;
+
+  categoryForm: FormGroup;
+  categoryUpdateForm: FormGroup;
+
   productsData: Product[] = [];
   categoriesData: Category[] = [];
-  currentCategory: Category = {
-    name: '',
-    uidPro:''
-  };
-  category: Category = {
-    name: '',
-    uidPro:''
-  };
 
   constructor(private productsService: ProductService, private router: Router, private categoriesService: CategoryService, private notificationsService: NotificationService) { }
 
   ngOnInit(): void {
+    this.uid = this.getUIDFromLocalStorage();
+    this.initializeForm();
+    this.initializeUpdateForm();
     this.loadAllProductsData();
     this.loadAllCategoriesData();
   }
 
+  getUIDFromLocalStorage(): string {
+    const userItem = localStorage.getItem('user');
+    if (userItem) {
+      const userObj = JSON.parse(userItem);
+      return userObj.uid;
+    }
+    return ''; // ou gérer l'absence d'UID comme vous le souhaitez
+  }
+
+  private initializeForm() {
+    this.categoryForm = new FormGroup({
+      name: new FormControl(''),
+      uidPro: new FormControl(this.uid)
+    });
+  }
+
+  private initializeUpdateForm() {
+    this.categoryUpdateForm = new FormGroup({
+      name: new FormControl(''),
+      uidPro: new FormControl(this.uid)
+    });
+  }
+
   loadAllProductsData(): void {
-    this.productsService.getAllProducts().subscribe(
+    if (!this.uid) {
+      console.error('UID est vide, impossible de charger les produits.');
+      return;
+    }
+
+    this.productsService.getAllProductsByRestaurant(this.uid).subscribe(
       response => {
         this.productsData = response;
         console.log('Produits récupérés avec succès!', response);
@@ -43,7 +73,12 @@ export class ProductsComponent implements OnInit {
   }
 
   loadAllCategoriesData(): void {
-    this.categoriesService.getAllCategories().subscribe(
+    if (!this.uid) {
+      console.error('UID est vide, impossible de charger les catégories.');
+      return;
+    }
+
+    this.categoriesService.getAllCategoriesByRestaurant(this.uid).subscribe(
       response => {
         this.categoriesData = response;
         console.log('Catégories récupérées avec succès!', response);
@@ -62,12 +97,14 @@ export class ProductsComponent implements OnInit {
   }
 
   addCategory() {
-    this.categoriesService.createCategory(this.category).subscribe(
+    this.categoriesService.createCategory(this.categoryForm.value).subscribe(
       response => {
         console.log('Catégorie créée avec succès!', response);
         this.loadAllCategoriesData();
         this.notificationsService.showSuccess("Catégorie créée avec succès!");
-        this.category.name = '';
+        this.categoryForm.patchValue({
+          name: ""
+        });
       },
       error => {
         console.error('Il y a eu une erreur lors de la création de la catégorie', error);
@@ -77,11 +114,17 @@ export class ProductsComponent implements OnInit {
   }
 
   changeCurrentCategory(category: Category) {
-    this.currentCategory = Object.assign({}, category);
+    this.categoryUpdateForm.patchValue({
+      name: category.name
+    });
+
+    this.categoryId = category.id;
   }
 
-  updateCategory(currentCategory: Category) {
-    this.categoriesService.updateCategory(currentCategory.id, currentCategory).subscribe(
+  updateCategory() {
+    console.log(this.categoryUpdateForm.value);
+
+    this.categoriesService.updateCategory(this.categoryId, this.categoryUpdateForm.value).subscribe(
       response => {
         console.log('Catégorie modifiée avec succès!', response);
         this.loadAllCategoriesData();
@@ -112,7 +155,7 @@ export class ProductsComponent implements OnInit {
     this.productsService.deleteProduct(product.id).subscribe(
       response => {
         console.log('Produit supprimé avec succès!', response);
-        this.loadAllCategoriesData();
+        this.loadAllProductsData();
         this.notificationsService.showSuccess("Produit supprimé avec succès!");
       },
       error => {
@@ -123,10 +166,10 @@ export class ProductsComponent implements OnInit {
   }
 
   navigateToCreateProduct() {
-    this.router.navigate(['/admin/products/create-product']);
+    this.router.navigate(['/admin/restaurant-products/restaurant-create-product']);
   }
 
   navigateToUpdateProduct(id) {
-    this.router.navigate(['/admin/products/edit-product', id]);
+    this.router.navigate(['/admin/restaurant-products/restaurant-edit-product', id]);
   }
 }

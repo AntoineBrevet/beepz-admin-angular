@@ -9,8 +9,8 @@ import { Product } from 'app/models/product.model';
 })
 export class ProductService {
   // URL de base pour accéder au backend. Ajustez-le en fonction de votre configuration.
-  private readonly baseUrl: string = `${environment.backendUrl}/product`; 
-  
+  private readonly baseUrl: string = `${environment.backendUrl}/product`;
+
   constructor(private http: HttpClient) { }
 
   // Ajouter un produit
@@ -28,13 +28,18 @@ export class ProductService {
     return this.http.get<Product>(`${this.baseUrl}/getOne/${id}`);
   }
 
+  // Récupérer tous les produits
+  getAllProductsByRestaurant(uidPro: string): Observable<Product[]> {
+    return this.http.get<Product[]>(`${this.baseUrl}/getAllByRestaurant/${uidPro}`);
+  }
+
   // Mettre à jour un produit
   updateProduct(id: string, updatedData: Product): Observable<Product> {
-    return this.http.put<Product>(`${this.baseUrl}/update/${id}`, updatedData); 
+    return this.http.put<Product>(`${this.baseUrl}/update/${id}`, updatedData);
   }
 
   // Supprimer un produit
   deleteProduct(id: string): Observable<Product> {
-    return this.http.delete<Product>(`${this.baseUrl}/delete/${id}`); 
+    return this.http.delete<Product>(`${this.baseUrl}/delete/${id}`);
   }
 }

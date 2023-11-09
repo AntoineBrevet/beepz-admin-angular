@@ -41,6 +41,12 @@ import { LoginComponent } from './components/login/login.component';
 
 import { AuthInterceptor } from './shared/auth.interceptor';
 import { CreateRestaurantComponent } from './components/restaurants/create-restaurant/create-restaurant.component';
+import { CreateOrderComponent } from './components/orders/create-order/create-order.component';
+import { EditOrderComponent } from './components/orders/edit-order/edit-order.component';
+import { RestaurantOrdersComponent } from './components/restaurant-orders/restaurant-orders.component';
+import { RestaurantProductsComponent } from './components/restaurant-products/restaurant-products.component';
+import { RestaurantCreateProductComponent } from './components/restaurant-orders/restaurant-create-product/restaurant-create-product.component';
+import { RestaurantEditProductComponent } from './components/restaurant-orders/restaurant-edit-product/restaurant-edit-product.component';
 
 @NgModule({
   imports: [
@@ -81,7 +87,13 @@ import { CreateRestaurantComponent } from './components/restaurants/create-resta
     CreateProductComponent,
     ImageCropperComponent,
     LoginComponent,
-    CreateRestaurantComponent
+    CreateRestaurantComponent,
+    CreateOrderComponent,
+    EditOrderComponent,
+    RestaurantOrdersComponent,
+    RestaurantProductsComponent,
+    RestaurantCreateProductComponent,
+    RestaurantEditProductComponent
   ],
   providers: [
     {

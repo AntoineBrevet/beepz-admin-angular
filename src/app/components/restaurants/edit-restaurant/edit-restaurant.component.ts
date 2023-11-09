@@ -15,7 +15,6 @@ declare const google: any;
 export class EditRestaurantComponent implements OnInit {
   restaurantForm: FormGroup;
   restaurantId: string;
-  restaurant: UsersDataPro;
 
   constructor(
     private route: ActivatedRoute, 
@@ -48,7 +47,6 @@ export class EditRestaurantComponent implements OnInit {
       this.restaurantId = params['id'];
       this.usersDataProService.getUsersDataProById(this.restaurantId).subscribe(
         data => {
-          this.restaurant = data;
           this.restaurantForm.patchValue(data); // Patch the form with the data.
         },
         error => {

@@ -24,6 +24,12 @@ import { LoginComponent } from './components/login/login.component';
 import { AuthGuard } from './shared/guards/auth.guard';
 import { RedirectIfAuthenticatedGuard } from './shared/guards/redirect-if-authenticated.guard';
 import { CreateRestaurantComponent } from './components/restaurants/create-restaurant/create-restaurant.component';
+import { CreateOrderComponent } from './components/orders/create-order/create-order.component';
+import { EditOrderComponent } from './components/orders/edit-order/edit-order.component';
+import { RestaurantOrdersComponent } from './components/restaurant-orders/restaurant-orders.component';
+import { RestaurantProductsComponent } from './components/restaurant-products/restaurant-products.component';
+import { RestaurantCreateProductComponent } from './components/restaurant-orders/restaurant-create-product/restaurant-create-product.component';
+import { RestaurantEditProductComponent } from './components/restaurant-orders/restaurant-edit-product/restaurant-edit-product.component';
 
 const routes: Routes = [
   {
@@ -51,6 +57,12 @@ const routes: Routes = [
       { path: 'products/edit-product/:id', component: EditProductComponent },
       { path: 'clients', component: ClientsComponent },
       { path: 'orders', component: OrdersComponent },
+      { path: 'orders/create-order', component: CreateOrderComponent },
+      { path: 'orders/edit-order/:id', component: EditOrderComponent },
+      { path: 'restaurant-orders', component: RestaurantOrdersComponent },
+      { path: 'restaurant-products', component: RestaurantProductsComponent },
+      { path: 'restaurant-products/restaurant-create-product', component: RestaurantCreateProductComponent },
+      { path: 'restaurant-products/restaurant-edit-product/:id', component: RestaurantEditProductComponent },
       { path: 'user-profile', component: UserProfileComponent },
       { path: 'table-list', component: TableListComponent },
       { path: 'typography', component: TypographyComponent },

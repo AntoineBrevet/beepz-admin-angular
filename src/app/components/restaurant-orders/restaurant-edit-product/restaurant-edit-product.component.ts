@@ -4,25 +4,21 @@ import { Product } from 'app/models/product.model';
 import { CategoryService } from 'app/services/category/category.service';
 import { NotificationService } from 'app/services/notification/notification.service';
 import { ProductService } from 'app/services/product/product.service';
-// import { MatDialog } from '@angular/material/dialog';
-// import { ImageCropperComponent } from '../image-cropper/image-cropper.component';
+import { FormGroup, FormControl } from '@angular/forms';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
-  selector: 'app-create-product',
-  templateUrl: './create-product.component.html',
-  styleUrls: ['./create-product.component.css']
+  selector: 'app-restaurant-edit-product',
+  templateUrl: './restaurant-edit-product.component.html',
+  styleUrls: ['./restaurant-edit-product.component.css']
 })
-export class CreateProductComponent implements OnInit {
+export class RestaurantEditProductComponent implements OnInit {
+  uid: string;
+  productId: string;
+
+  productForm : FormGroup;
+
   categoriesData: Category[] = [];
-  product: Product = {
-    name: '',
-    uidPro:'',
-    categoryId: '',
-    price: 0,
-    description: '',
-    imageURL: '',
-    isActive: true
-  };
 
   previewUrl: string | ArrayBuffer;
 
@@ -31,12 +27,48 @@ export class CreateProductComponent implements OnInit {
   // deleteImage = false;
   // existingImageUrl: string;
 
-  constructor(private productsService: ProductService, private categoriesService: CategoryService, private notificationsService: NotificationService
+  constructor(private route: ActivatedRoute, private productsService: ProductService, private categoriesService: CategoryService, private notificationsService: NotificationService
     // private dialog: MatDialog
-    ) { }
+  ) { 
+    this.productForm = new FormGroup({
+      name: new FormControl(''),
+      categoryId: new FormControl(''),
+      price: new FormControl(''),
+      description: new FormControl(''),
+      imageURL: new FormControl(''),
+      isActive: new FormControl(''),
+      uidPro: new FormControl(this.uid)
+    });
+  }
 
   ngOnInit(): void {
+    this.uid = this.getUIDFromLocalStorage();
     this.loadAllCategoriesData();
+    this.loadProductData();
+  }
+
+  loadProductData() {
+    this.route.params.subscribe(params => {
+      this.productId = params['id'];
+      console.log(this.productId);
+      this.productsService.getProductById(this.productId).subscribe(
+        data => {
+          this.productForm.patchValue(data); // Patch the form with the data.
+        },
+        error => {
+          console.error('There was an error!', error);
+        }
+      )
+    });
+  }
+
+  getUIDFromLocalStorage(): string {
+    const userItem = localStorage.getItem('user');
+    if (userItem) {
+      const userObj = JSON.parse(userItem);
+      return userObj.uid;
+    }
+    return ''; // ou gérer l'absence d'UID comme vous le souhaitez
   }
 
   // get img(): string {
@@ -51,7 +83,7 @@ export class CreateProductComponent implements OnInit {
   // }
 
   loadAllCategoriesData() {
-    this.categoriesService.getAllCategories().subscribe(
+    this.categoriesService.getAllCategoriesByRestaurant(this.uid).subscribe(
       data => {
         this.categoriesData = data;
       },
@@ -62,7 +94,7 @@ export class CreateProductComponent implements OnInit {
   }
 
   addProduct() {
-    this.productsService.createProduct(this.product).subscribe(
+    this.productsService.createProduct(this.productForm.value).subscribe(
       response => {
         console.log('Produit crée avec succès!', response);
         this.notificationsService.showSuccess("Produit crée avec succès!");
@@ -87,22 +119,4 @@ export class CreateProductComponent implements OnInit {
       reader.readAsDataURL(file);
     }
   }
-
-  // openImageDialog(): void {
-  //   const dialogRef = this.dialog.open(ImageCropperComponent, {
-  //     maxHeight: '90vh'
-  //   });
-  //   dialogRef.afterClosed().subscribe((imgBase64: string) => {
-  //     this.imageBase64 = imgBase64;
-  //     this.imageFileName = new Date().getTime().toString() + '.png';
-  //     this.deleteImage = false;
-  //   });
-  // }
-
-  // deleteStoreImage(): void {
-  //   this.existingImageUrl = null;
-  //   this.deleteImage = true;
-  //   this.imageBase64 = null;
-  //   this.imageFileName = null;
-  // }
 }

@@ -1,7 +1,9 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { Order } from 'app/models/order.model';
 import { UsersDataPro } from 'app/models/usersDataPro.model';
 import { UsersDataUser } from 'app/models/usersDataUser.model';
+import { NotificationService } from 'app/services/notification/notification.service';
 import { OrderService } from 'app/services/order/order.service';
 import { UsersDataProService } from 'app/services/usersDataPro/users-data-pro.service';
 import { UsersDataUserService } from 'app/services/usersDataUser/users-data-user.service';
@@ -16,7 +18,7 @@ export class OrdersComponent implements OnInit {
     usersData: UsersDataUser[] = [];
     prosData: UsersDataPro[] = [];
 
-    constructor(private orderService: OrderService, private usersDataProService: UsersDataProService, private usersDataUserService: UsersDataUserService) { }
+    constructor(private orderService: OrderService, private usersDataProService: UsersDataProService, private usersDataUserService: UsersDataUserService, private router: Router, private notificationsService: NotificationService) { }
 
     ngOnInit(): void {
         this.loadAllOrdersData();
@@ -76,5 +78,23 @@ export class OrdersComponent implements OnInit {
 
     timestampToDate(timestamp: any): Date {
         return new Date(timestamp._seconds * 1000);
+    }
+
+    deleteOrder(order: Order) {
+        this.orderService.deleteOrder(order.id).subscribe(
+            response => {
+                console.log('Commande supprimée avec succès!', response);
+                this.loadAllOrdersData();
+                this.notificationsService.showSuccess("Commande supprimée avec succès!");
+            },
+            error => {
+                console.error('Il y a eu une erreur lors de la suppression de la commande', error);
+                this.notificationsService.showError("Il y a eu une erreur lors de la suppression de la commande");
+            }
+        );
+    }
+
+    navigateToUpdateOrder(id) {
+        this.router.navigate(['/admin/orders/edit-order', id]);
     }
 }

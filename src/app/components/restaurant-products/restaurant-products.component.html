@@ -123,18 +123,20 @@
                                 <span aria-hidden="true">&times;</span>
                             </button>
                         </div>
-                        <div class="modal-body">
-                            <div class="col-sm-12">
-                                <mat-form-field class="example-full-width">
-                                    <input matInput [(ngModel)]="category.name" type="text"
-                                        placeholder="Nom de la catégorie">
-                                </mat-form-field>
+                        <form [formGroup]="categoryForm">
+                            <div class="modal-body">
+                                <div class="col-sm-12">
+                                    <mat-form-field class="example-full-width">
+                                        <input matInput formControlName="name" type="text"
+                                            placeholder="Nom de la catégorie">
+                                    </mat-form-field>
+                                </div>
                             </div>
-                        </div>
-                        <div class="modal-footer justify-content-center">
-                            <button type="button" class="btn btn-success" (click)="addCategory()"
-                                data-dismiss="modal">Ajouter</button>
-                        </div>
+                            <div class="modal-footer justify-content-center">
+                                <button type="button" class="btn btn-success" (click)="addCategory()"
+                                    data-dismiss="modal">Ajouter</button>
+                            </div>
+                        </form>
                     </div>
                 </div>
             </div>
@@ -149,18 +151,19 @@
                                 <span aria-hidden="true">&times;</span>
                             </button>
                         </div>
-                        <div class="modal-body">
-                            <div class="col-sm-12">
-                                <mat-form-field class="example-full-width">
-                                    <input matInput [(ngModel)]="currentCategory.name" type="text"
-                                        placeholder="Nom de la catégorie">
-                                </mat-form-field>
+                        <form [formGroup]="categoryUpdateForm">
+                            <div class="modal-body">
+                                <div class="col-sm-12">
+                                    <mat-form-field class="example-full-width">
+                                        <input matInput formControlName="name" type="text"
+                                            placeholder="Nom de la catégorie">
+                                    </mat-form-field>
+                                </div>
                             </div>
-                        </div>
-                        <div class="modal-footer justify-content-center">
-                            <button type="button" class="btn btn-success" (click)="updateCategory(currentCategory)"
-                                data-dismiss="modal">Modifier</button>
-                        </div>
+                            <div class="modal-footer justify-content-center">
+                                <button type="button" class="btn btn-success" (click)="updateCategory()" data-dismiss="modal">Modifier</button>
+                            </div>
+                        </form>
                     </div>
                 </div>
             </div>

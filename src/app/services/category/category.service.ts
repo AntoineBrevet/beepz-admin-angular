@@ -29,6 +29,11 @@ export class CategoryService {
     return this.http.get<Category>(`${this.baseUrl}/getOne/${id}`);
   }
 
+  // Récupérer toutes les commandes
+  getAllCategoriesByRestaurant(uidPro: string): Observable<Category[]> {
+    return this.http.get<Category[]>(`${this.baseUrl}/getAllByRestaurant/${uidPro}`);
+  }
+
   // Mettre à jour une catégorie
   updateCategory(id: string, updatedData: Category): Observable<Category> {
     return this.http.put<Category>(`${this.baseUrl}/update/${id}`, updatedData);
