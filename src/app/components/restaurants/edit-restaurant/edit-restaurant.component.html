@@ -1,0 +1,81 @@
+<div class="main-content">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="card">
+                    <div class="card-header card-header-primary">
+                        <h4 class="card-title">Modifier restaurant</h4>
+                        <p class="card-category">Modifier un restaurant</p>
+                    </div>
+                    <div class="card-body">
+                        <form [formGroup]="restaurantForm">
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <mat-form-field class="example-full-width">
+                                        <input matInput formControlName="siret" placeholder="Siret" type="text">
+                                    </mat-form-field>
+                                </div>
+                                <div class="col-md-6">
+                                    <mat-form-field class="example-full-width">
+                                        <input matInput formControlName="entreprisenom" placeholder="Nom d'entreprise"
+                                            type="text">
+                                    </mat-form-field>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <mat-form-field class="example-full-width">
+                                        <input matInput formControlName="email" placeholder="Email" type="text">
+                                    </mat-form-field>
+                                </div>
+                                <div class="col-md-6">
+                                    <mat-form-field class="example-full-width">
+                                        <input matInput formControlName="tel" placeholder="Téléphone" type="text">
+                                    </mat-form-field>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <mat-form-field class="example-full-width">
+                                        <input matInput id="address" name="address" placeholder="Rechercher une adresse"
+                                            type="text">
+                                    </mat-form-field>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <mat-form-field class="example-full-width">
+                                        <input matInput formControlName="adresse" placeholder="Adresse" type="text"
+                                            readonly>
+                                    </mat-form-field>
+                                </div>
+                                <!-- <div class="col-md-6">
+                                    <mat-form-field class="example-full-width">
+                                        <input matInput formControlName="additionaladdress"
+                                            placeholder="Complément d'adresse" type="text">
+                                    </mat-form-field>
+                                </div> -->
+                            </div>
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <mat-form-field class="example-full-width">
+                                        <input matInput formControlName="codepostal" placeholder="Code Postal"
+                                            type="text" readonly>
+                                    </mat-form-field>
+                                </div>
+                                <div class="col-md-6">
+                                    <mat-form-field class="example-full-width">
+                                        <input matInput formControlName="city" placeholder="Ville" type="text" readonly>
+                                    </mat-form-field>
+                                </div>
+                            </div>
+                            <button mat-raised-button (click)="updateRestaurant()" type="submit"
+                                class="btn btn-success pull-right">Modifier le restaurant</button>
+                            <div class="clearfix"></div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

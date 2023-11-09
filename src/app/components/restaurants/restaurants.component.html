@@ -1,0 +1,70 @@
+<div class="main-content">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="card">
+                    <div class="card-header card-header-primary">
+                        <button (click)="navigateToCreateRestaurant()" class="btn btn-success float-right">
+                            Ajouter un restaurant
+                        </button>
+                        <h4 class="card-title ">Liste des restaurants</h4>
+                        <p class="card-category">Liste des commandes des restaurants</p>
+                    </div>
+                    <div class="card-body">
+                        <div class="table-responsive">
+                            <table class="table">
+                                <thead class=" text-primary">
+                                    <th>
+                                        Siret
+                                    </th>
+                                    <th>
+                                        Nom
+                                    </th>
+                                    <th>
+                                        Email
+                                    </th>
+                                    <th>
+                                        Numéro de téléphone
+                                    </th>
+                                    <th>
+                                        Adresse
+                                    </th>
+                                </thead>
+                                <tbody>
+                                    <tr *ngFor="let user of usersData">
+                                        <td>
+                                            {{user.siret}}
+                                        </td>
+                                        <td>
+                                            {{user.entreprisenom}}
+                                        </td>
+                                        <td>
+                                            {{user.email}}
+                                        </td>
+                                        <td>
+                                            {{user.tel}}
+                                        </td>
+                                        <td>
+                                            {{user.adresse}} {{user.codepostal}}
+                                        </td>
+                                        <td class="text-right">
+                                            <button mat-mini-fab matTooltip="Modifier"
+                                                class="btn btn-warning mr-2  mb-1"
+                                                (click)="navigateToUpdateRestaurant(user.id)">
+                                                <i class="material-icons">mode</i>
+                                            </button>
+                                            <button mat-mini-fab matTooltip="Supprimer"
+                                                class="btn btn-danger mr-2 pull-right" (click)="deleteRestaurant(user)">
+                                                <i class="material-icons">clear</i>
+                                            </button>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
