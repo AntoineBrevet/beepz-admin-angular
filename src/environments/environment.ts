@@ -4,6 +4,7 @@
 // The list of which env maps to which file can be found in `.angular-cli.json`.
 
 export const environment = {
-  backendUrl: "http://localhost:8080",
+  // backendUrl: "http://localhost:8080",
+  backendUrl : "https://afternoon-refuge-39340-56d4ac8f2b58.herokuapp.com",
   production: false
 };
